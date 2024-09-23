@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
+
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
 
@@ -16,24 +18,35 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanScreenState extends State<ScanScreen> {
 
+  final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
+
+  void processScan(XFile labelImage) async{
+    final inputImage = InputImage.fromFile(File(labelImage.path));
+    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
+    await textRecognizer.close();
+
+    for (TextBlock block in recognizedText.blocks) {
+      for (TextLine line in block.lines) {
+        // Same getters as TextBlock
+        print(line.text);
+      }
+    }
+  }
+
     void scanLabel() async {
     final imagePicker = ImagePicker();
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       print("DEBUG - IMAGE PICKED SUCCESSFULLY");
       setState(() {
-        pickedImage = Image.file(File(pickedFile.path));
-
+        processScan(pickedFile);
       });
     } else {
       setState(() {
-        pickedImage = Image.asset('imgs/myAvatar.jpg');
+        print('SOMETHING WENT WRONG');
       });
     }
   }
-  
-  late Image pickedImage;
-
 
   int amount = 0;
   @override

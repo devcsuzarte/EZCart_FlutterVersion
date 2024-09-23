@@ -36,6 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   image_picker: ^1.1.2
+  google_mlkit_text_recognition: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -58,8 +59,6 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-  assets:
-    - imgs/myAvatar.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
