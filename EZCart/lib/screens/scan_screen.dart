@@ -1,7 +1,12 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 class ScanScreen extends StatefulWidget {
   const ScanScreen({super.key});
 
@@ -10,6 +15,26 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanScreenState extends State<ScanScreen> {
+
+    void scanLabel() async {
+    final imagePicker = ImagePicker();
+    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      print("DEBUG - IMAGE PICKED SUCCESSFULLY");
+      setState(() {
+        pickedImage = Image.file(File(pickedFile.path));
+
+      });
+    } else {
+      setState(() {
+        pickedImage = Image.asset('imgs/myAvatar.jpg');
+      });
+    }
+  }
+  
+  late Image pickedImage;
+
+
   int amount = 0;
   @override
   Widget build(BuildContext context) {
@@ -18,7 +43,7 @@ class _ScanScreenState extends State<ScanScreen> {
         title: Text('Scan'),
         actions: [
          IconButton(
-           onPressed: () => print('openBrowser'),
+           onPressed: () => scanLabel(),
            color: Colors.greenAccent,
            icon: Icon(
                  CupertinoIcons.barcode_viewfinder),
@@ -82,7 +107,6 @@ class _ScanScreenState extends State<ScanScreen> {
                     ],
                   ),
                 ),
-        
               ],
             ),
             Row(
@@ -147,7 +171,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   ),
                 )
               ],
-            )
+            ),
           ],
         ),
       ),
