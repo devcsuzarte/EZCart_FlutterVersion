@@ -1,17 +1,13 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:ezcart/models/text_manager.dart';
 import 'package:ezcart/models/product.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
+import 'package:ezcart/models/scan_manager.dart';
 
 // TODO: When clicks on scan clean up possible prices
 // TODO: Finish getConvertedPrice()
@@ -27,61 +23,12 @@ class ScanScreen extends StatefulWidget {
 class _ScanScreenState extends State<ScanScreen> {
 
   int amount = 0;
-  late String displayLabel = "";
-  late String displayPrice = "";
-
+  //late String displayLabel = "";
+  //late String displayPrice = "";
   final textManager = TextManager();
+  final scanManager = ScanManager();
 
-  var labelTxtController = TextEditingController();
-  var priceTxtController = TextEditingController();
 
-  final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
-
-  void processScan(XFile labelImage) async{
-    final inputImage = InputImage.fromFile(File(labelImage.path));
-    final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
-    await textRecognizer.close();
-
-    for (TextBlock block in recognizedText.blocks) {
-      for (TextLine line in block.lines) {
-        // Same getters as TextBlock
-        print("LABEL TEXT: ${line.text}");
-        if(textManager.isTextValid(line.text)) {
-          textManager.possibleLables.add(line.text);
-        }
-        if(textManager.isPriceValid(line.text)) {
-          textManager.possiblePrices.add(line.text);
-        }
-      }
-    }
-
-    print(textManager.possibleLables);
-    setState(() {
-      displayLabel = textManager.possibleLables.length > 0 ? textManager.possibleLables[0] : "PRODUTO";
-      labelTxtController.text = displayLabel;
-    });
-    print(textManager.possiblePrices);
-    setState(() {
-      displayPrice = textManager.possiblePrices.length > 0 ? textManager.possiblePrices[0] : "0,00";
-      priceTxtController.text = textManager.getConvertedPrice(displayPrice).toString();
-    });
-
-  }
-
-    void scanLabel() async {
-    final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      print("DEBUG - IMAGE PICKED SUCCESSFULLY");
-      setState(() {
-        processScan(pickedFile);
-      });
-    } else {
-      setState(() {
-        print('SOMETHING WENT WRONG');
-      });
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +36,9 @@ class _ScanScreenState extends State<ScanScreen> {
         title: Text('Scan'),
         actions: [
          IconButton(
-           onPressed: () => scanLabel(),
+           onPressed: () {
+              scanManager.scanLabel();
+           },
            color: Colors.greenAccent,
            icon: Icon(
                  CupertinoIcons.barcode_viewfinder),
@@ -144,7 +93,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             style: TextStyle(
                               fontSize: 40.0
                             ),
-                          controller: priceTxtController,
+                          controller: scanManager.priceTxtController,
                           decoration: InputDecoration(
                             hintText: "00,00",
                             border: InputBorder.none,
@@ -174,7 +123,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   flex: 7,
                     child: TextField(
                       textAlign: TextAlign.center,
-                  controller: labelTxtController,
+                  controller: scanManager.labelTxtController,
                   style: TextStyle(
                       fontSize: 20.0
                   ),
@@ -223,7 +172,7 @@ class _ScanScreenState extends State<ScanScreen> {
             MaterialButton(
               color: CupertinoColors.systemGreen,
               onPressed: () {
-                var newProduct = Product(amount, displayPrice, displayLabel);
+                var newProduct = Product(amount, scanManager.labelPrice, scanManager.labelText);
                 Provider.of<ProductData>(context, listen: false).addProduct(newProduct);
                 Navigator.pop(context);
               },
