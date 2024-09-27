@@ -9,7 +9,7 @@ class ProductCell extends StatelessWidget {
 
   final String label;
   final int amount;
-  final double price;
+  final String price;
 
 
   @override
@@ -26,7 +26,7 @@ class ProductCell extends StatelessWidget {
             ),
           ),
           Text(
-              'Preço Unidade: ${price.toStringAsFixed(2)}',
+              'Preço Unidade: $price',
                style: TextStyle(
                  fontSize: 15.0,
                  fontWeight: FontWeight.bold,

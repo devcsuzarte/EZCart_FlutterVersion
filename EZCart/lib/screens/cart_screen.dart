@@ -1,6 +1,8 @@
+import 'package:ezcart/widgets/products_list.dart';
 import 'package:flutter/material.dart';
 import 'scan_screen.dart';
-import 'package:ezcart/components/product_cell.dart';
+import 'package:ezcart/widgets//product_cell.dart';
+import 'package:ezcart/models/product_data.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -32,17 +34,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-          ProductCell(label: 'Arroz Demerara', amount: 3, price: 3.99999),
-        ],
-      ),
+      body: ProductsList()
     );
   }
 }
