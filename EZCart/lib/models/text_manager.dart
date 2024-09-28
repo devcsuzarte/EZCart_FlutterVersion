@@ -39,7 +39,7 @@ class TextManager {
   }
 
   bool isPriceValid(String price) {
-    if(price.contains(",")){
+    if((price.contains(',')) || price.contains('.')){
       return true;
     } else {
       return false;

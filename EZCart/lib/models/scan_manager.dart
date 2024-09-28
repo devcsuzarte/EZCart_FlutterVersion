@@ -1,17 +1,13 @@
-import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 import 'package:ezcart/models/text_manager.dart';
-import 'package:ezcart/models/product.dart';
-import 'package:ezcart/models/product_data.dart';
-import 'package:provider/provider.dart';
+
+// TODO: Create Refresh Functions
+
 
 class ScanManager {
 
@@ -19,9 +15,11 @@ class ScanManager {
 
   String labelText = "";
   String labelPrice = "";
-
   var labelTxtController = TextEditingController();
   var priceTxtController = TextEditingController();
+
+  int titleIndex = 0;
+  int priceIndex = 0;
 
 
   final textManager = TextManager();
@@ -47,8 +45,8 @@ class ScanManager {
     }
 
     print(textManager.possibleLables);
-    labelText = textManager.possibleLables.length > 0 ? textManager.possibleLables[0] : "PRODUTO";
-    labelPrice = textManager.possiblePrices.length > 0 ? textManager.possiblePrices[0] : "0,00";
+    labelText = textManager.possibleLables.length > 0 ? textManager.possibleLables[titleIndex] : "PRODUTO";
+    labelPrice = textManager.possiblePrices.length > 0 ? textManager.possiblePrices[priceIndex] : "0,00";
     labelTxtController.text = labelText;
     priceTxtController.text = labelPrice;
   }
@@ -64,12 +62,14 @@ class ScanManager {
     }
   }
 
-  void setTitle(String title) {
-    labelTxtController.text = textManager.possibleLables[0];
+  void refreshTitle() {
+    titleIndex < textManager.possibleLables.length ? titleIndex++ : titleIndex = 0;
+    labelTxtController.text = textManager.possibleLables[titleIndex];
   }
 
-  void setPrice(String title) {
-    labelTxtController.text = textManager.possiblePrices[0];
+  void refreshPrice() {
+    priceIndex < textManager.possiblePrices.length ? priceIndex++ : priceIndex = 0;
+    priceTxtController.text = textManager.possiblePrices[priceIndex];
   }
 
 

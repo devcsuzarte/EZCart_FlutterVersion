@@ -56,7 +56,9 @@ class _ScanScreenState extends State<ScanScreen> {
                 Expanded(
                   flex: 2,
                   child: IconButton(
-                      onPressed: () => print('refresh'),
+                      onPressed: () {
+                        scanManager.refreshPrice();
+                      },
                       icon: Icon(Icons.refresh),
                       color: Colors.greenAccent,
                       iconSize: 40.0,
@@ -110,7 +112,9 @@ class _ScanScreenState extends State<ScanScreen> {
                 Expanded(
                   flex: 2,
                   child: IconButton(
-                    onPressed: () => print('refresh'),
+                    onPressed: () {
+                      scanManager.refreshTitle();
+                    },
                     icon: Icon(Icons.refresh),
                     color: Colors.greenAccent,
                     iconSize: 40.0,
