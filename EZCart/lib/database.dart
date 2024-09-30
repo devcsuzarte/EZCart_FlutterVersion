@@ -1,6 +1,7 @@
+import 'dart:ffi';
 import 'dart:math';
-
 import 'package:sqflite/sqflite.dart';
+import 'models/product.dart';
 import 'package:path/path.dart';
 
 class EZCartDB {
@@ -11,10 +12,24 @@ class EZCartDB {
     CREATE TABLE IF NOT EXISTS $tableName (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     lableTitle TEXT NOT NULL,
-    lablePrice REAL NOT NULL,
+    lablePrice TEXT NOT NULL,
     amount INTEGER NOT NULL
     )
     """);
+  }
+
+  Future<List<Product>> get fetchAll async {
+    final database = await DatabaseService().database;
+    final data = await database.query(tableName);
+    List<Product> products = data.map(
+          (e) => Product(
+          e['amount'] as int?,
+          e['lablePrice'] as String?,
+          e['lableTitle'] as String?
+      ),
+    ).toList();
+    print("from DB: ${data}");
+    return products;
   }
 
   Future<int> create({required String title, required double price, required int amount}) async {

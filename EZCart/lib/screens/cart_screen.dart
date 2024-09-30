@@ -1,23 +1,31 @@
 import 'package:ezcart/widgets/products_list.dart';
 import 'package:flutter/material.dart';
 import 'scan_screen.dart';
+import 'package:ezcart/models/product_data.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
-
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<ProductData>(context, listen: false).showData();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('EZCart'),
         actions: [
           IconButton(
-              onPressed: () => print('cleanup'),
+              onPressed: () {
+                Provider.of<ProductData>(context, listen: false).showData();
+              },
               icon: Icon(
                 Icons.clear,
                 color: Colors.greenAccent,

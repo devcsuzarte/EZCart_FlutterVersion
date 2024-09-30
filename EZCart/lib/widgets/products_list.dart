@@ -14,9 +14,9 @@ class ProductsList extends StatelessWidget {
               itemBuilder: (context, index) {
                 final product = productData.productsList[index];
                 return ProductCell(
-                    label: product.labelTitle,
-                    amount: product.amount,
-                    price: product.labelPrice
+                    label: product.labelTitle!,
+                    amount: product.amount!,
+                    price: product.labelPrice!
                 );
               },
             itemCount: productData.productsList.length,
