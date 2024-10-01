@@ -13,13 +13,19 @@ class ProductsList extends StatelessWidget {
           return ListView.builder(
               itemBuilder: (context, index) {
                 final product = productData.productsList[index];
-                return ProductCell(
-                    label: product.labelTitle!,
-                    amount: product.amount!,
-                    price: product.labelPrice!
+                return GestureDetector(
+                  onLongPress: () {
+                    Provider.of<ProductData>(context, listen: false).deleteProduct(product.id!);
+                    print(product.id);
+                  },
+                  child: ProductCell(
+                      label: product.labelTitle!,
+                      amount: product.amount!,
+                      price: product.labelPrice!
+                  ),
                 );
               },
-            itemCount: productData.productsList.length,
+            itemCount: Provider.of<ProductData>(context, listen: false).productsList.length,
           );
         }
     );

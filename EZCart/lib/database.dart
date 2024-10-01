@@ -19,13 +19,14 @@ class EZCartDB {
   }
 
   Future<List<Product>> get fetchAll async {
-    final database = await DatabaseService().database;
-    final data = await database.query(tableName);
+    final db = await DatabaseService().database;
+    final data = await db.query(tableName);
     List<Product> products = data.map(
           (e) => Product(
-          e['amount'] as int?,
-          e['lablePrice'] as String?,
-          e['lableTitle'] as String?
+        id: e['id'] as int?,
+        amount:   e['amount'] as int?,
+        labelPrice:   e['lablePrice'] as String?,
+        labelTitle:   e['lableTitle'] as String?
       ),
     ).toList();
     print("from DB: ${data}");
@@ -33,12 +34,25 @@ class EZCartDB {
   }
 
   Future<int> create({required String title, required double price, required int amount}) async {
-    final database = await DatabaseService().database;
-    return await database.rawInsert(
+    final db = await DatabaseService().database;
+    return await db.rawInsert(
       '''INSERT INTO $tableName (lableTitle, lablePrice, amount) VALUES (?,?,?)''',
       [title, price, amount]
     );
   }
+
+  Future<int> delete({required int id}) async {
+    final db = await DatabaseService().database;
+    return await db.delete(
+      tableName,
+      where: 'id = ?',
+      whereArgs: [
+        id
+      ],
+    );
+  }
+
+  // TODO - Create a delete function - before that remember to change Product to have a ID property
 
 }
 

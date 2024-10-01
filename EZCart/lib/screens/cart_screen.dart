@@ -24,7 +24,7 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                Provider.of<ProductData>(context, listen: false).showData();
+                Provider.of<ProductData>(context, listen: false).getTotalCartPrice();
               },
               icon: Icon(
                 Icons.clear,
