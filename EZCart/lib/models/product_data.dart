@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/widgets.dart';
 import 'package:ezcart/database.dart';
 import 'product.dart';
@@ -17,6 +19,7 @@ class ProductData extends ChangeNotifier{
 
   void showData() async{
     productsList = await EZCartDB().fetchAll;
+    setTotalCartPrice();
     notifyListeners();
   }
 
@@ -25,10 +28,13 @@ class ProductData extends ChangeNotifier{
     showData();
   }
 
-  void getTotalCartPrice() {
+
+  void setTotalCartPrice() {
+    var total = 0.0;
     for (Product product in productsList) {
-      totalCartPrice = totalCartPrice + double.parse(product.labelPrice!);
+      total = total + (double.parse(product.labelPrice!) * product.amount!);
     }
-    print(totalCartPrice);
+    print(total);
+    totalCartPrice = total;
   }
 }

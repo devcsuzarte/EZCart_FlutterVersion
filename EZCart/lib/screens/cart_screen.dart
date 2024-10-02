@@ -20,11 +20,16 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('EZCart'),
+        title: Text(
+          'R\$ ${Provider.of<ProductData>(context, listen: true).totalCartPrice}',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
-                Provider.of<ProductData>(context, listen: false).getTotalCartPrice();
+
               },
               icon: Icon(
                 Icons.clear,

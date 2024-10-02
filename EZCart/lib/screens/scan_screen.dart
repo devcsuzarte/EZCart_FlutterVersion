@@ -22,7 +22,7 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanScreenState extends State<ScanScreen> {
 
-  int amount = 0;
+  int amount = 1;
   //late String displayLabel = "";
   //late String displayPrice = "";
   final textManager = TextManager();
