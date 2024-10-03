@@ -29,7 +29,7 @@ class _CartScreenState extends State<CartScreen> {
         actions: [
           IconButton(
               onPressed: () {
-
+                Provider.of<ProductData>(context, listen: false).cleanCartList();
               },
               icon: Icon(
                 Icons.clear,

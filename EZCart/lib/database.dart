@@ -52,8 +52,12 @@ class EZCartDB {
     );
   }
 
-  // TODO - Create a delete function - before that remember to change Product to have a ID property
-
+  Future<int> deleteTable() async {
+    final db = await DatabaseService().database;
+    return await db.delete(
+      tableName
+    );
+  }
 }
 
 class DatabaseService {

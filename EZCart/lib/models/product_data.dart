@@ -28,6 +28,11 @@ class ProductData extends ChangeNotifier{
     showData();
   }
 
+  void cleanCartList() {
+    EZCartDB().deleteTable();
+    showData();
+  }
+
 
   void setTotalCartPrice() {
     var total = 0.0;

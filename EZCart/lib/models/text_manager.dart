@@ -23,6 +23,8 @@ class TextManager {
         case "9":
         case ".":
           priceConverted = priceConverted + char;
+        default:
+          break;
       }
     }
 
