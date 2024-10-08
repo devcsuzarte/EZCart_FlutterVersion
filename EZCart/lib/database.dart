@@ -58,6 +58,7 @@ class EZCartDB {
       tableName
     );
   }
+  
 }
 
 class DatabaseService {

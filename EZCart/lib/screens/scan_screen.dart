@@ -176,7 +176,6 @@ class _ScanScreenState extends State<ScanScreen> {
             MaterialButton(
               color: CupertinoColors.systemGreen,
               onPressed: () {
-                //var newProduct = Product(amount, scanManager.labelPrice, scanManager.labelText);
                 var newProduct = Product(amount: amount, labelPrice:  scanManager.labelPrice, labelTitle:  scanManager.labelText);
                 Provider.of<ProductData>(context, listen: false).addProduct(newProduct);
                 Navigator.pop(context);

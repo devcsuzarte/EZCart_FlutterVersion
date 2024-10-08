@@ -6,6 +6,7 @@ class TextManager {
   final List<String> possibleLables = [];
   final List<String> possiblePrices = [];
 
+// Apply unit test here
   double getConvertedPrice(String priceText) {
     String priceConverted = "";
     String price = priceText.replaceAll(',', '.');

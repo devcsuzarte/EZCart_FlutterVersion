@@ -62,12 +62,12 @@ class ScanManager {
   }
 
   void refreshTitle() {
-    titleIndex < textManager.possibleLables.length ? titleIndex++ : titleIndex = 0;
+    titleIndex < textManager.possibleLables.length - 1 ? titleIndex++ : titleIndex = 0;
     labelTxtController.text = textManager.possibleLables[titleIndex];
   }
 
   void refreshPrice() {
-    priceIndex < textManager.possiblePrices.length ? priceIndex++ : priceIndex = 0;
+    priceIndex < textManager.possiblePrices.length - 1 ? priceIndex++ : priceIndex = 0;
     priceTxtController.text = textManager.possiblePrices[priceIndex];
   }
 }
