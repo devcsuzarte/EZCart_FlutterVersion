@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'screens/cart_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/models/product_data.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: CupertinoColors.systemGreen),
           useMaterial3: true,
         ),
         home: CartScreen(),

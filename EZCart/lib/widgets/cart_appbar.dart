@@ -10,7 +10,7 @@ class CartAppbar extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(
-        color: Colors.greenAccent,
+        color: Color(0xFFA8E6CF),
         borderRadius: BorderRadius.circular(25.0),
       ),
       child: Padding(
@@ -23,7 +23,11 @@ class CartAppbar extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    boxShadow: [BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      offset: Offset(0, 3),
+                    )],
+                    color: Color(0xFFF5F5F5),
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Padding(
@@ -40,7 +44,7 @@ class CartAppbar extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 35,
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            color: Color(0xFF333333),
                           ),
                         ),
                       ],
@@ -59,7 +63,7 @@ class CartAppbar extends StatelessWidget {
                 height: 48.0,
               ),
               shape: CircleBorder(),
-              fillColor: Colors.white,
+              fillColor: Color(0xFFF5F5F5),
               onPressed: () => Provider.of<ProductData>(context, listen: false).cleanCartList(),
             ),
           ],
