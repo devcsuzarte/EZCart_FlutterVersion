@@ -5,6 +5,7 @@ import 'scan_screen.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/widgets/cart_appbar.dart';
+import 'package:ezcart/models/scan_manager.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -20,10 +21,13 @@ class _CartScreenState extends State<CartScreen> {
     Provider.of<ProductData>(context, listen: false).showData();
   }
   Widget build(BuildContext context) {
+    var scanManager = ScanManager(context: context);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ScanScreen())),
+        onPressed: () {
+          scanManager.scanLabel();
+        },
         tooltip: "Ler etiqueta",
         child: Icon(
           CupertinoIcons.barcode_viewfinder,

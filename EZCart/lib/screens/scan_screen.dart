@@ -14,40 +14,37 @@ import 'package:ezcart/models/scan_manager.dart';
 
 
 class ScanScreen extends StatefulWidget {
-  const ScanScreen({super.key});
+
+  late List<String> labelsList;
+  late List<String> priceList;
+  ScanScreen({required this.labelsList, required this.priceList});
 
   @override
   State<ScanScreen> createState() => _ScanScreenState();
 }
 
 class _ScanScreenState extends State<ScanScreen> {
-
-  int amount = 1;
-  //late String displayLabel = "";
-  //late String displayPrice = "";
   final textManager = TextManager();
   final scanManager = ScanManager();
+  final textLabelController = TextEditingController();
+  final textPriceController = TextEditingController();
 
+  var labelIndex = 0;
+  var priceIndex = 0;
+
+  int amount = 1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    textLabelController.text = widget.labelsList.length > 0 ? widget.labelsList[labelIndex] : "PRODUTO";
+    textPriceController.text = widget.priceList.length > 0 ? widget.priceList[priceIndex] : "0,00";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Scan'),
-        actions: [
-         IconButton(
-           onPressed: () {
-              scanManager.scanLabel();
-           },
-           color: Colors.greenAccent,
-           icon: Icon(
-                 CupertinoIcons.barcode_viewfinder),
-         ),
-        ],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5.0),
-        child: Column(
+    return Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +54,10 @@ class _ScanScreenState extends State<ScanScreen> {
                   flex: 2,
                   child: IconButton(
                       onPressed: () {
-                        scanManager.refreshPrice();
+                       setState(() {
+                         priceIndex < widget.priceList.length - 1 ? priceIndex++ : priceIndex = 0;
+                         textPriceController.text = widget.priceList[priceIndex];
+                       });
                       },
                       icon: Icon(Icons.refresh),
                       color: Colors.greenAccent,
@@ -87,7 +87,7 @@ class _ScanScreenState extends State<ScanScreen> {
                               ),
                             ),
                           ),
-        
+
                       ),
                       Expanded(
                           flex: 2,
@@ -95,7 +95,7 @@ class _ScanScreenState extends State<ScanScreen> {
                             style: TextStyle(
                               fontSize: 40.0
                             ),
-                          controller: scanManager.priceTxtController,
+                         controller: textPriceController,
                           decoration: InputDecoration(
                             hintText: "00,00",
                             border: InputBorder.none,
@@ -113,7 +113,10 @@ class _ScanScreenState extends State<ScanScreen> {
                   flex: 2,
                   child: IconButton(
                     onPressed: () {
-                      scanManager.refreshTitle();
+                      setState(() {
+                        labelIndex < widget.labelsList.length - 1 ? labelIndex++ : labelIndex = 0;
+                        textLabelController.text = widget.labelsList[labelIndex];
+                      });
                     },
                     icon: Icon(Icons.refresh),
                     color: Colors.greenAccent,
@@ -127,7 +130,7 @@ class _ScanScreenState extends State<ScanScreen> {
                   flex: 7,
                     child: TextField(
                       textAlign: TextAlign.center,
-                  controller: scanManager.labelTxtController,
+                  controller: textLabelController,
                   style: TextStyle(
                       fontSize: 20.0
                   ),
@@ -154,7 +157,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     children: [
                       IconButton(
                           onPressed: () {
-                            setState(() {
+                           setState(() {
                               amount++;
                             });
                           },
@@ -176,15 +179,13 @@ class _ScanScreenState extends State<ScanScreen> {
             MaterialButton(
               color: CupertinoColors.systemGreen,
               onPressed: () {
-                var newProduct = Product(amount: amount, labelPrice:  scanManager.labelPrice, labelTitle:  scanManager.labelText);
+                var newProduct = Product(amount: amount, labelPrice:  textPriceController.text, labelTitle:  textLabelController.text);
                 Provider.of<ProductData>(context, listen: false).addProduct(newProduct);
                 Navigator.pop(context);
               },
               child: Text('Adicionar Item'),
             )
           ],
-        ),
-      ),
     );
   }
 }

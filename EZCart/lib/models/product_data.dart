@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:flutter/widgets.dart';
 import 'package:ezcart/database.dart';
 import 'product.dart';
