@@ -8,12 +8,13 @@ import 'package:ezcart/models/product.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/models/scan_manager.dart';
+import 'package:ezcart/widgets/price_label.dart';
 
 class ScanScreen extends StatefulWidget {
 
   late List<String> labelsList;
   late List<String> priceList;
-  ScanScreen({required this.labelsList, required this.priceList});
+  ScanScreen({super.key, required this.labelsList, required this.priceList});
 
   @override
   State<ScanScreen> createState() => _ScanScreenState();
@@ -38,130 +39,145 @@ class _ScanScreenState extends State<ScanScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    constraints: BoxConstraints(maxHeight: 400),
-                    color: Color(0xFFFFF203),
-                    child: TextField(
-                      maxLines: null,
-                      textAlign: TextAlign.center,
-                      controller: textLabelController,
-                      style: TextStyle(
-                          fontSize: 25.0
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Container(
+                      constraints: BoxConstraints(maxHeight: 400),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFF203),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      decoration: InputDecoration(
-                          hintText: 'PRODUTO',
-                          border: InputBorder.none
+                      child: TextField(
+                        maxLines: null,
+                        textAlign: TextAlign.center,
+                        controller: textLabelController,
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w600,
+                        ),
+                        decoration: InputDecoration(
+                            hintText: 'PRODUTO',
+                            border: InputBorder.none
+                        ),
                       ),
                     ),
                   ),
-                ),
-            ),
-            Flexible(
-              child: Container(
-                color: Colors.blue,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+              ),
+              Flexible(
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: 150),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xFFA8E6CF),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      amount++;
+                                    });
+                                  },
+                                  icon: Icon(CupertinoIcons.add, size: 35,),
+                                ),
+                              ),
+                              Text(' ${amount}x',
+                                style: TextStyle(
+                                    fontSize: 20.0
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    amount > 1 ? amount-- : amount = 1;
+                                  });
+                                },
+                                icon: Icon(CupertinoIcons.minus, size: 35,),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
+                            PriceLabel(
+                              textPriceController: textPriceController,
+                              onPressed: () {
+                                priceIndex < widget.priceList.length - 1 ? priceIndex++ : priceIndex = 0;
+                                textPriceController.text = widget.priceList[priceIndex];
+                              },
+                            ),
+                            SizedBox(
+                              height: 25.0,
+                            ),
                             Expanded(
+                              child: MaterialButton(
+                                color: CupertinoColors.systemGreen,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                                onPressed: () {
+                                  var newProduct = Product(amount: amount, labelPrice:  textPriceController.text, labelTitle:  textLabelController.text);
+                                  Provider.of<ProductData>(context, listen: false).addProduct(newProduct);
+                                  Navigator.pop(context);
+                                },
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(
-                                        child: IconButton(
-                                            onPressed: () {
-                                              priceIndex < widget.priceList.length - 1 ? priceIndex++ : priceIndex = 0;
-                                              textPriceController.text = widget.priceList[priceIndex];
-                                            },
-                                            icon: Icon(
-                                              CupertinoIcons.refresh_bold,
-                                              color: CupertinoColors.systemGreen,
-                                              size: 45,
-                                            ),
-                                        ),
-                                    ),
-                                    Expanded(child: Text(
-                                      'R\$',
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                        fontSize: 40.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: TextField(
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 8.0),
+                                      child: Text(
+                                          'Adicionar Item',
+                                        textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontSize: 40.0
-                                        ),
-                                        controller: textPriceController,
-                                        decoration: InputDecoration(
-                                          hintText: "00,00",
-                                          border: InputBorder.none,
+                                          fontSize: 20,
+                                          color: Colors.white,
                                         ),
                                       ),
-                                    )
+                                    ),
+                                    Icon(
+                                      CupertinoIcons.cart_badge_plus,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
                                   ],
                                 ),
+                              ),
                             ),
                           ],
                         ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                amount++;
-                              });
-                            },
-                            icon: Icon(Icons.add),
-                          ),
-                          Text(' ${amount}x:',
-                            style: TextStyle(
-                                fontSize: 20.0
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                amount > 1 ? amount-- : amount = 1;
-                              });
-                            },
-                            icon: Icon(Icons.remove),
-                          ),
-                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Flexible(
-              child: MaterialButton(
-                color: CupertinoColors.systemGreen,
-                onPressed: () {
-                  var newProduct = Product(amount: amount, labelPrice:  textPriceController.text, labelTitle:  textLabelController.text);
-                  Provider.of<ProductData>(context, listen: false).addProduct(newProduct);
-                  Navigator.pop(context);
-                },
-                child: Text('Adicionar Item'),
-              ),
-            ),
-          ],
+              SizedBox(
+                height: 50,
+              )
+            ],
+      ),
     );
   }
 }
