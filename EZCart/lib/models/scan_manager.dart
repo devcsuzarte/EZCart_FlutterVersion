@@ -7,23 +7,11 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 import 'package:ezcart/models/text_manager.dart';
 import 'package:ezcart/screens/scan_screen.dart';
 
-// TODO: Create Refresh Functions
-
-
 class ScanManager extends ChangeNotifier {
 
 ScanManager({this.context});
 
-BuildContext? context;
-  String labelText = "";
-  String labelPrice = "";
-  //var labelTxtController = TextEditingController();
-  //var priceTxtController = TextEditingController();
-
-  int titleIndex = 0;
-  int priceIndex = 0;
-
-
+  BuildContext? context;
   final textRecognizer = TextRecognizer(script: TextRecognitionScript.latin);
 
   void processScan(XFile labelImage) async{
@@ -38,7 +26,6 @@ BuildContext? context;
         print("LABEL TEXT: ${line.text}");
         if(textManager.isTextValid(line.text)) {
           textManager.possibleLables.add(line.text);
-
         }
         if(textManager.isPriceValid(line.text)) {
           textManager.possiblePrices.add(line.text);
@@ -47,10 +34,6 @@ BuildContext? context;
     }
 
     print(textManager.possibleLables);
-    labelText = textManager.possibleLables.length > 0 ? textManager.possibleLables[titleIndex] : "PRODUTO";
-    labelPrice = textManager.possiblePrices.length > 0 ? textManager.possiblePrices[priceIndex] : "0,00";
-   /* labelTxtController.text = labelText;
-   priceTxtController.text = labelPrice;*/
     print('CONTEXT: $context');
     showModalBottomSheet(context: context!, builder: (context) => ScanScreen(labelsList: textManager.possibleLables, priceList: textManager.possiblePrices,));
   }
@@ -64,14 +47,4 @@ BuildContext? context;
         print('SOMETHING WENT WRONG');
     }
   }
-
- /* void refreshTitle() {
-    titleIndex < textManager.possibleLables.length - 1 ? titleIndex++ : titleIndex = 0;
-    labelTxtController.text = textManager.possibleLables[titleIndex];
-  }
-
-  void refreshPrice() {
-    priceIndex < textManager.possiblePrices.length - 1 ? priceIndex++ : priceIndex = 0;
-    priceTxtController.text = textManager.possiblePrices[priceIndex];
-  }*/
 }
