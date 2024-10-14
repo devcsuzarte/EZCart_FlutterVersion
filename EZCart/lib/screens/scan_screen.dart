@@ -50,20 +50,48 @@ class _ScanScreenState extends State<ScanScreen> {
                     child: Container(
                       constraints: BoxConstraints(maxHeight: 400),
                       decoration: BoxDecoration(
+                        boxShadow: [BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          offset: Offset(1, 3),
+                        )],
                         color: Color(0xFFFFF203),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      child: TextField(
-                        maxLines: null,
-                        textAlign: TextAlign.center,
-                        controller: textLabelController,
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.w600,
-                        ),
-                        decoration: InputDecoration(
-                            hintText: 'PRODUTO',
-                            border: InputBorder.none
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: IconButton(
+                                onPressed: () {
+                                  labelIndex < widget.labelsList.length - 1 ? labelIndex++ : labelIndex = 0;
+                                  textLabelController.text = widget.labelsList[labelIndex];
+                                },
+                                icon: Icon(
+                                  CupertinoIcons.refresh_bold,
+                                  color: CupertinoColors.systemGreen,
+                                  size: 45,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: TextField(
+                                maxLines: null,
+                                textAlign: TextAlign.center,
+                                controller: textLabelController,
+                                style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.w600,
+                                ),
+                                decoration: InputDecoration(
+                                    hintText: 'PRODUTO',
+                                    border: InputBorder.none
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -82,6 +110,10 @@ class _ScanScreenState extends State<ScanScreen> {
                           decoration: BoxDecoration(
                             color: Color(0xFFA8E6CF),
                             borderRadius: BorderRadius.circular(15.0),
+                            boxShadow: [BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              offset: Offset(2, 3),
+                            )],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -94,12 +126,12 @@ class _ScanScreenState extends State<ScanScreen> {
                                       amount++;
                                     });
                                   },
-                                  icon: Icon(CupertinoIcons.add, size: 35,),
+                                  icon: Icon(CupertinoIcons.add_circled_solid, size: 35, color: CupertinoColors.black,),
                                 ),
                               ),
-                              Text(' ${amount}x',
+                              Text('${amount}x',
                                 style: TextStyle(
-                                    fontSize: 20.0
+                                  fontSize: 20.0,
                                 ),
                               ),
                               IconButton(
@@ -108,7 +140,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                     amount > 1 ? amount-- : amount = 1;
                                   });
                                 },
-                                icon: Icon(CupertinoIcons.minus, size: 35,),
+                                icon: Icon(CupertinoIcons.minus_circle_fill, size: 35, color: CupertinoColors.black,),
                               ),
                             ],
                           ),

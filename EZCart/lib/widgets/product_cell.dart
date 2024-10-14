@@ -14,26 +14,44 @@ class ProductCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-              '${amount}x ${label}',
-               style: TextStyle(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: CircleAvatar(
+            child: Text(
+              '${amount}x',
+              style: TextStyle(
                 fontSize: 20.0,
+              ),
             ),
           ),
-          Text(
-              'Preço Unidade: $price',
-               style: TextStyle(
-                 fontSize: 15.0,
-                 fontWeight: FontWeight.bold,
-               ),
+        ),
+        Expanded(
+          flex: 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                  label,
+                   softWrap: true,
+                   style: TextStyle(
+                    fontSize: 20.0,
+                ),
+              ),
+              Text(
+                  'Preço Unidade: R\$$price',
+                   style: TextStyle(
+                     fontSize: 15.0,
+                     fontWeight: FontWeight.bold,
+                   ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

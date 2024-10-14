@@ -10,8 +10,8 @@ class ProductsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ProductData>(
         builder: (context, productData, child) {
-          return ListView.builder(
-              itemBuilder: (context, index) {
+          return ListView.separated(
+            itemBuilder: (context, index) {
                 final product = productData.productsList[index];
                 return Dismissible(
                   key: Key(product.id!.toString()),
@@ -41,6 +41,9 @@ class ProductsList extends StatelessWidget {
                   ),
                 );
               },
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
             itemCount: Provider.of<ProductData>(context, listen: false).productsList.length,
           );
         }

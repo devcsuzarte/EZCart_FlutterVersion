@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
+import 'package:ezcart/constants.dart';
 
 class CartAppbar extends StatelessWidget {
   const CartAppbar({super.key});
@@ -11,7 +12,14 @@ class CartAppbar extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(
         color: Color(0xFFA8E6CF),
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(25.0),
+            bottomRight: Radius.circular(25.0),
+        ),
+        boxShadow: [BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          offset: Offset(0, 2),
+        )],
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 70.0, bottom: 20.0, right: 25.0, left: 25.0),
@@ -24,7 +32,7 @@ class CartAppbar extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     boxShadow: [BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
+                      color: Colors.grey.withOpacity(0.3),
                       offset: Offset(0, 3),
                     )],
                     color: Color(0xFFF5F5F5),

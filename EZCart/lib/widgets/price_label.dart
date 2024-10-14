@@ -19,7 +19,11 @@ class PriceLabel extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: Color(0xFFA8E6CF),
-          borderRadius: BorderRadius.circular(15.0)
+          borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [BoxShadow(
+          color: Colors.grey.withOpacity(0.1),
+          offset: Offset(1,2),
+        )],
       ),
       child: Row(
         children: [

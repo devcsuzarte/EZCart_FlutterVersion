@@ -38,7 +38,10 @@ class _CartScreenState extends State<CartScreen> {
               MediaQuery.of(context).size.height * 0.18),
           child: CartAppbar(),
       ),
-      body: ProductsList()
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ProductsList(),
+      )
     );
   }
 }
