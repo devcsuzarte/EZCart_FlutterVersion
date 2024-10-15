@@ -35,7 +35,12 @@ ScanManager({this.context});
 
     print(textManager.possibleLables);
     print('CONTEXT: $context');
-    showModalBottomSheet(context: context!, builder: (context) => ScanScreen(labelsList: textManager.possibleLables, priceList: textManager.possiblePrices,));
+    showModalBottomSheet(
+      context: context!,
+      builder: (context) => ScanScreen(labelsList: textManager.possibleLables, priceList: textManager.possiblePrices,),
+      enableDrag: true,
+      showDragHandle: true,
+    );
   }
 
   void scanLabel() async {

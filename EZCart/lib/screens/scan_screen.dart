@@ -46,7 +46,7 @@ class _ScanScreenState extends State<ScanScreen> {
             children: [
               Flexible(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.only(bottom: 20.0),
                     child: Container(
                       constraints: BoxConstraints(maxHeight: 400),
                       decoration: BoxDecoration(

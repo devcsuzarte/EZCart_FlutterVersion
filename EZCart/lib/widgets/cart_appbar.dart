@@ -3,6 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/constants.dart';
+import 'package:ezcart/widgets/delete_alert_dialog.dart';
+import 'dart:io' show Platform;
+
 
 class CartAppbar extends StatelessWidget {
   const CartAppbar({super.key});
@@ -72,7 +75,7 @@ class CartAppbar extends StatelessWidget {
               ),
               shape: CircleBorder(),
               fillColor: Color(0xFFF5F5F5),
-              onPressed: () => Provider.of<ProductData>(context, listen: false).cleanCartList(),
+              onPressed: () => Platform.isIOS ? cupertinoDialog(context) : materialDialog(context),
             ),
           ],
         ),
