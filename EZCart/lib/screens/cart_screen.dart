@@ -1,10 +1,10 @@
-import 'package:ezcart/widgets/products_list.dart';
+import 'package:ezcart/widgets/cart_screen_widgets/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
-import 'package:ezcart/widgets/cart_appbar.dart';
-import 'package:ezcart/models/scan_manager.dart';
+import 'package:ezcart/widgets/cart_screen_widgets/cart_appbar.dart';
+import 'package:ezcart/controller/scan_manager.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});

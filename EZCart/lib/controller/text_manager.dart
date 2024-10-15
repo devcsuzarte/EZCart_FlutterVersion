@@ -1,5 +1,5 @@
 import 'dart:ffi';
-import 'package:ezcart/widgets//product_cell.dart';
+import 'package:ezcart/widgets/cart_screen_widgets/product_cell.dart';
 import 'package:flutter/cupertino.dart';
 
 class TextManager {

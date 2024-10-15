@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:ezcart/models/product_data.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/constants.dart';
-import 'package:ezcart/widgets/delete_alert_dialog.dart';
+import 'package:ezcart/widgets/cart_screen_widgets/delete_alert_dialog.dart';
 import 'dart:io' show Platform;
 
 

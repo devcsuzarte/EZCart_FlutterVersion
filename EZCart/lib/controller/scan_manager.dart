@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
-import 'package:ezcart/models/text_manager.dart';
+import 'package:ezcart/controller/text_manager.dart';
 import 'package:ezcart/screens/scan_screen.dart';
 
 class ScanManager extends ChangeNotifier {

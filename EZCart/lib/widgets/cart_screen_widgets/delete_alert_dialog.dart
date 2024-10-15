@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/product_data.dart';
+import '../../models/product_data.dart';
 import 'package:ezcart/constants.dart';
 
 
