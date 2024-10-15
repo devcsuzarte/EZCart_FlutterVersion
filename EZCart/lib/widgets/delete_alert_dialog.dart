@@ -2,26 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/product_data.dart';
+import 'package:ezcart/constants.dart';
 
 
 void cupertinoDialog(BuildContext context) {
   showCupertinoDialog<void>(
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-      title: Text('Deseja limpar o carrinho?'),
-      content: Text('Todos os itens serão deletados'),
+      title: kDialogTitleText,
+      content: kDialogContentText,
       actions: <CupertinoDialogAction> [
         CupertinoDialogAction(
-          isDefaultAction: true,
-          child: Text('Sim'),
+          isDestructiveAction: true,
+          child: kDialogActionDefaultText,
           onPressed: () {
             Provider.of<ProductData>(context, listen: false).cleanCartList();
             Navigator.pop(context);
           },
         ),
         CupertinoDialogAction(
-          isDestructiveAction: true,
-          child: Text('Não'),
+          child: kDialogActionDismissText,
           onPressed: () => Navigator.pop(context),
         ),
       ],
@@ -35,11 +35,11 @@ void cupertinoDialog(BuildContext context) {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Deseja limpar o carrinho?'),
+          title: kDialogTitleText,
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget> [
-                Text('Todos os itens serão deletados'),
+                kDialogTitleText,
               ],
             ),
           ),
@@ -49,13 +49,13 @@ void cupertinoDialog(BuildContext context) {
                 Provider.of<ProductData>(context, listen: false).cleanCartList();
                 Navigator.pop(context);
               },
-                child: Text('Sim'),
+                child: kDialogActionDefaultText,
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-                child: Text('Não'),
+                child: kDialogActionDismissText,
             ),
           ],
         );

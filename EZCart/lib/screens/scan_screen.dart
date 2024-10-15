@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:ezcart/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -54,7 +55,7 @@ class _ScanScreenState extends State<ScanScreen> {
                           color: Colors.grey.withOpacity(0.1),
                           offset: Offset(1, 3),
                         )],
-                        color: Color(0xFFFFF203),
+                        color: kProductLabelColor,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       child: Padding(
@@ -70,7 +71,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                 },
                                 icon: Icon(
                                   CupertinoIcons.refresh_bold,
-                                  color: CupertinoColors.systemGreen,
+                                  color: kSecondaryColor,
                                   size: 45,
                                 ),
                               ),
@@ -81,14 +82,8 @@ class _ScanScreenState extends State<ScanScreen> {
                                 maxLines: null,
                                 textAlign: TextAlign.center,
                                 controller: textLabelController,
-                                style: TextStyle(
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.w600,
-                                ),
-                                decoration: InputDecoration(
-                                    hintText: 'PRODUTO',
-                                    border: InputBorder.none
-                                ),
+                                style: kProductLabelTextFieldStyle,
+                                decoration: kProductLabelTextFieldDecoration
                               ),
                             ),
                           ],
@@ -130,9 +125,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                 ),
                               ),
                               Text('${amount}x',
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                ),
+                                style: kBodyTextStyle
                               ),
                               IconButton(
                                 onPressed: () {
@@ -183,10 +176,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                       child: Text(
                                           'Adicionar Item',
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                        ),
+                                        style: kBodyWhiteTextStyle,
                                       ),
                                     ),
                                     Icon(

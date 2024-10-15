@@ -42,7 +42,10 @@ class ProductsList extends StatelessWidget {
                 );
               },
             separatorBuilder: (context, index) {
-              return Divider();
+              return const Padding(
+                padding: EdgeInsets.only(left: 25.0),
+                child: Divider(),
+              );
             },
             itemCount: Provider.of<ProductData>(context, listen: false).productsList.length,
           );
