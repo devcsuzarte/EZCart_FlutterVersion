@@ -7,7 +7,7 @@ class TextManager {
   final List<String> possiblePrices = [];
 
 // Apply unit test here
-  double getConvertedPrice(String priceText) {
+  String getConvertedPrice(String priceText) {
     String priceConverted = "";
     String price = priceText.replaceAll(',', '.');
     for (var char in price.characters) {
@@ -29,7 +29,7 @@ class TextManager {
       }
     }
 
-    return double.parse(priceConverted);
+    return priceConverted;
   }
 
   bool isTextValid(String text) {

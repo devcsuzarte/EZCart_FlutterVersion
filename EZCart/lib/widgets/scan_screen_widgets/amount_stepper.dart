@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:ezcart/constants.dart';
 
 class AmountStepper extends StatelessWidget {
@@ -18,11 +17,11 @@ class AmountStepper extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFA8E6CF),
+        color: kPrimaryColor,
         borderRadius: BorderRadius.circular(15.0),
         boxShadow: [BoxShadow(
           color: Colors.grey.withOpacity(0.1),
-          offset: Offset(2, 3),
+          offset: const Offset(2, 3),
         )],
       ),
       child: Column(
@@ -32,7 +31,7 @@ class AmountStepper extends StatelessWidget {
           Center(
             child: IconButton(
               onPressed: addPressed,
-              icon: Icon(CupertinoIcons.add_circled_solid, size: 35, color: CupertinoColors.black,),
+              icon: kStepperAddIcon,
             ),
           ),
           Text('${amount}x',
@@ -40,7 +39,7 @@ class AmountStepper extends StatelessWidget {
           ),
           IconButton(
             onPressed: minusPressed,
-            icon: Icon(CupertinoIcons.minus_circle_fill, size: 35, color: CupertinoColors.black,),
+            icon: kStepperMinusIcon,
           ),
         ],
       ),

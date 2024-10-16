@@ -22,19 +22,14 @@ ScanManager({this.context});
 
     for (TextBlock block in recognizedText.blocks) {
       for (TextLine line in block.lines) {
-        // Same getters as TextBlock
-        print("LABEL TEXT: ${line.text}");
         if(textManager.isTextValid(line.text)) {
           textManager.possibleLables.add(line.text);
         }
         if(textManager.isPriceValid(line.text)) {
-          textManager.possiblePrices.add(line.text);
+          textManager.possiblePrices.add(textManager.getConvertedPrice(line.text));
         }
       }
     }
-
-    print(textManager.possibleLables);
-    print('CONTEXT: $context');
     showModalBottomSheet(
       context: context!,
       builder: (context) => ScanScreen(labelsList: textManager.possibleLables, priceList: textManager.possiblePrices,),
@@ -46,10 +41,10 @@ ScanManager({this.context});
   void scanLabel() async {
     final imagePicker = ImagePicker();
     final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-        processScan(pickedFile);
-    } else {
-        print('SOMETHING WENT WRONG');
+    try{
+        processScan(pickedFile!);
+    } catch (e) {
+        throw('SOMETHING WENT WRONG: $e');
     }
   }
 }

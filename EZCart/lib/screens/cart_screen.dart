@@ -1,7 +1,8 @@
+import 'package:ezcart/constants.dart';
 import 'package:ezcart/widgets/cart_screen_widgets/products_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:ezcart/models/product_data.dart';
+import 'package:ezcart/controller/product_data_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/widgets/cart_screen_widgets/cart_appbar.dart';
 import 'package:ezcart/controller/scan_manager.dart';
@@ -28,9 +29,7 @@ class _CartScreenState extends State<CartScreen> {
           scanManager.scanLabel();
         },
         tooltip: "Ler etiqueta",
-        child: Icon(
-          CupertinoIcons.barcode_viewfinder,
-          size: 50,),
+        child: kFloatingActionIcon
       ),
       appBar: PreferredSize(
           preferredSize: Size(

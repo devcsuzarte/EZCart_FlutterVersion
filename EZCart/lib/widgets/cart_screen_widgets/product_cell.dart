@@ -1,3 +1,4 @@
+import 'package:ezcart/constants.dart';
 import 'package:flutter/material.dart';
 
 class ProductCell extends StatelessWidget {
@@ -11,7 +12,6 @@ class ProductCell extends StatelessWidget {
   final int amount;
   final String price;
 
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -23,9 +23,7 @@ class ProductCell extends StatelessWidget {
           child: CircleAvatar(
             child: Text(
               '${amount}x',
-              style: TextStyle(
-                fontSize: 20.0,
-              ),
+              style: kBodyTextStyle,
             ),
           ),
         ),
@@ -37,16 +35,11 @@ class ProductCell extends StatelessWidget {
               Text(
                   label,
                    softWrap: true,
-                   style: TextStyle(
-                    fontSize: 20.0,
-                ),
+                   style: kBodyTextStyle,
               ),
               Text(
                   'Preço Unidade: R\$$price',
-                   style: TextStyle(
-                     fontSize: 15.0,
-                     fontWeight: FontWeight.bold,
-                   ),
+                   style: kPriceCellTextStyle,
               ),
             ],
           ),

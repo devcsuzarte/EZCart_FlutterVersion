@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../models/product_data.dart';
+import '../../controller/product_data_manager.dart';
 import 'package:ezcart/constants.dart';
 
 
@@ -36,7 +36,7 @@ void cupertinoDialog(BuildContext context) {
       builder: (BuildContext context) {
         return AlertDialog(
           title: kDialogTitleText,
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget> [
                 kDialogTitleText,

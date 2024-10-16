@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ezcart/controller/text_manager.dart';
 import 'package:ezcart/models/product.dart';
-import 'package:ezcart/models/product_data.dart';
+import 'package:ezcart/controller/product_data_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/controller/scan_manager.dart';
 import 'package:ezcart/widgets/scan_screen_widgets/price_label.dart';

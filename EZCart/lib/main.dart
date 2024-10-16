@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'screens/cart_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:ezcart/models/product_data.dart';
+import 'package:ezcart/controller/product_data_manager.dart';
 
 void main() {
   runApp(const MyApp());

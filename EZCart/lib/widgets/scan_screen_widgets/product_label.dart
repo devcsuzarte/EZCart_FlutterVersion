@@ -1,8 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ezcart/constants.dart';
 
 class ProductLabel extends StatelessWidget {
@@ -20,11 +16,11 @@ class ProductLabel extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
       child: Container(
-        constraints: BoxConstraints(maxHeight: 400),
+        constraints: kProductScanLabelConstrains,
         decoration: BoxDecoration(
           boxShadow: [BoxShadow(
             color: Colors.grey.withOpacity(0.1),
-            offset: Offset(1, 3),
+            offset: const Offset(1, 3),
           )],
           color: kProductLabelColor,
           borderRadius: BorderRadius.circular(8.0),
@@ -37,11 +33,7 @@ class ProductLabel extends StatelessWidget {
                 flex: 1,
                 child: IconButton(
                   onPressed: onPressed,
-                  icon: Icon(
-                    CupertinoIcons.refresh_bold,
-                    color: kSecondaryColor,
-                    size: 45,
-                  ),
+                  icon: kRefreshIcon,
                 ),
               ),
               Expanded(

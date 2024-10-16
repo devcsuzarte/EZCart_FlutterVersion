@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:ezcart/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
@@ -18,11 +19,11 @@ class PriceLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Color(0xFFA8E6CF),
+          color: kPrimaryColor,
           borderRadius: BorderRadius.circular(15.0),
           boxShadow: [BoxShadow(
           color: Colors.grey.withOpacity(0.1),
-          offset: Offset(1,2),
+          offset: const Offset(1,2),
         )],
       ),
       child: Row(
@@ -30,33 +31,21 @@ class PriceLabel extends StatelessWidget {
           Expanded(
             child: IconButton(
               onPressed: onPressed,
-              icon: Icon(
-                CupertinoIcons.refresh_bold,
-                color: CupertinoColors.systemGreen,
-                size: 45,
-              ),
+              icon: kRefreshIcon,
             ),
           ),
-          Expanded(child: Text(
+          const Expanded(child: Text(
             'R\$',
             textAlign: TextAlign.end,
-            style: TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: kPriceLabelTextStyle,
           ),
           ),
           Expanded(
             flex: 2,
             child: TextField(
-              style: TextStyle(
-                  fontSize: 40.0
-              ),
+              style: kLargeTextStyle,
               controller: textPriceController,
-              decoration: InputDecoration(
-                hintText: "00,00",
-                border: InputBorder.none,
-              ),
+              decoration: kPriceTextInputDecoration,
             ),
           )
         ],

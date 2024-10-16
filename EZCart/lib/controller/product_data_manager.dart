@@ -1,23 +1,28 @@
+import 'dart:collection';
 import 'dart:ffi';
 import 'package:flutter/widgets.dart';
 import 'package:ezcart/database.dart';
-import 'product.dart';
+import '../models/product.dart';
 
 class ProductData extends ChangeNotifier{
 
-  List<Product> productsList = [];
+  List<Product> _productsList = [];
   double totalCartPrice = 0.0;
 
+  UnmodifiableListView<Product> get products {
+    return UnmodifiableListView(_productsList);
+  }
+
+
   void addProduct(Product product) {
-    productsList.add(product);
+    _productsList.add(product);
     var price = product.labelPrice!.replaceAll(',', '.');
     EZCartDB().create(title: product.labelTitle!, price: double.parse(price), amount: product.amount!);
     showData();
-    print(productsList);
   }
 
   void showData() async{
-    productsList = await EZCartDB().fetchAll;
+    _productsList = await EZCartDB().fetchAll;
     setTotalCartPrice();
     notifyListeners();
   }
@@ -35,10 +40,9 @@ class ProductData extends ChangeNotifier{
 
   void setTotalCartPrice() {
     var total = 0.0;
-    for (Product product in productsList) {
+    for (Product product in _productsList) {
       total = total + (double.parse(product.labelPrice!) * product.amount!);
     }
-    print(total);
     totalCartPrice = total;
   }
 }

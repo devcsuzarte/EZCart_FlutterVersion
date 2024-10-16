@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:ezcart/models/product_data.dart';
+import 'package:ezcart/controller/product_data_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:ezcart/constants.dart';
 import 'package:ezcart/widgets/cart_screen_widgets/delete_alert_dialog.dart';
@@ -12,16 +11,13 @@ class CartAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 15.0),
+      margin: const EdgeInsets.only(bottom: 15.0),
       decoration: BoxDecoration(
-        color: Color(0xFFA8E6CF),
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(25.0),
-            bottomRight: Radius.circular(25.0),
-        ),
+        color: kPrimaryColor,
+        borderRadius: kAppBarBorderRadius,
         boxShadow: [BoxShadow(
           color: Colors.grey.withOpacity(0.2),
-          offset: Offset(0, 2),
+          offset: const Offset(0, 2),
         )],
       ),
       child: Padding(
@@ -36,27 +32,20 @@ class CartAppbar extends StatelessWidget {
                   decoration: BoxDecoration(
                     boxShadow: [BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     )],
-                    color: Color(0xFFF5F5F5),
+                    color: kLightColor,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Row(
                       children: [
-                        Icon(
-                          CupertinoIcons.cart,
-                          size: 40,
-                        ),
-                        SizedBox(width: 10,),
+                        kCartIcon,
+                        const SizedBox(width: 10,),
                         Text(
                           'R\$${Provider.of<ProductData>(context, listen: true).totalCartPrice.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF333333),
-                          ),
+                          style: kTitleTextStyle,
                         ),
                       ],
                     ),
@@ -65,17 +54,11 @@ class CartAppbar extends StatelessWidget {
               ],
             ),
             RawMaterialButton(
-              child: Icon(
-                CupertinoIcons.trash_fill,
-                color: CupertinoColors.destructiveRed,
-              ),
-              constraints: BoxConstraints.tightFor(
-                width: 48.0,
-                height: 48.0,
-              ),
-              shape: CircleBorder(),
-              fillColor: Color(0xFFF5F5F5),
+              constraints: kDeleteItemsConstrains,
+              shape: const CircleBorder(),
+              fillColor: kLightColor,
               onPressed: () => Platform.isIOS ? cupertinoDialog(context) : materialDialog(context),
+              child: kDeleteItemsIcon,
             ),
           ],
         ),
